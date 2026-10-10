@@ -4,250 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gbgl - Gofile</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         body {
-            background-color: #121826;
-            color: #f3f4f6;
-            padding: 12px;
-            max-width: 600px;
-            margin: 0 auto;
-            -webkit-font-smoothing: antialiased;
-        }
-        .top-header {
+            background-color: #0b0f19;
+            color: #fff;
             display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-            font-size: 18px;
-            font-weight: 500;
-            color: #e5e7eb;
-        }
-        .hamburger {
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        /* フォルダカード */
-        .folder-card {
-            background-color: #1b2436;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid #2a374a;
-        }
-        .folder-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .folder-left {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-        }
-        
-        /* 本家の画像から切り抜いた黄色フォルダアイコン */
-        .sprite-folder {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            background-image: url('photo_2026-10-11_04-21-11.jpg');
-            background-position: 7.3% 21.3%;
-            background-size: 650%;
-            background-repeat: no-repeat;
-        }
-
-        .folder-title {
-            font-size: 17px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-        .folder-meta {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        /* 本家画像から切り抜いたカレンダーアイコン */
-        .sprite-calendar {
-            width: 14px;
-            height: 14px;
-            display: inline-block;
-            background-image: url('photo_2026-10-11_04-21-11.jpg');
-            background-position: 24.2% 23.5%;
-            background-size: 2200%;
-            background-repeat: no-repeat;
-        }
-
-        .badge-public {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            font-size: 11px;
-            font-weight: 500;
-            padding: 2px 10px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .folder-actions {
-            display: flex;
-            gap: 8px;
-        }
-        .icon-btn {
-            background-color: #253349;
-            border: none;
-            color: #cbd5e1;
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
 
-        /* ツールバー（本家の画像を切り抜いた各ツールボタン） */
-        .toolbar {
-            background-color: #1b2436;
-            border-radius: 12px;
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #2a374a;
-        }
-        .toolbar-group {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            cursor: pointer;
-        }
-        .checkbox-custom {
-            width: 18px;
-            height: 18px;
-            border: 2px solid #64748b;
-            border-radius: 4px;
-            display: inline-block;
-        }
-
-        /* 本家のツールバーアイコン切り抜き用クラス */
-        .tb-icon-1 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 50.5% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
-        .tb-icon-2 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 58.0% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
-        .tb-icon-3 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 65.5% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
-        .tb-icon-4 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 73.0% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
-        .tb-icon-5 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 80.5% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
-        .tb-icon-6 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 88.0% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
-
-        /* ファイルカード */
-        .file-item {
-            background-color: #1b2436;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 14px;
-            border: 1px solid #2a374a;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .file-item:hover {
-            background-color: #222e44;
-        }
-        .file-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .file-title-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        /* 本家の画像から切り抜いた紫色のファイルアイコン */
-        .sprite-file {
-            width: 20px;
-            height: 20px;
-            background-image: url('photo_2026-10-11_04-21-11.jpg');
-            background-position: 18.2% 39.5%;
-            background-size: 1500%;
-            background-repeat: no-repeat;
-        }
-
-        .file-name {
-            font-size: 15px;
-            font-weight: 500;
-            color: #f8fafc;
-            word-break: break-all;
-        }
-        .file-details {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-left: 44px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .file-preview {
-            width: 100%;
-            height: 320px;
-            background-color: #000;
-            border-radius: 8px;
-            overflow: hidden;
+        /* 本家のスクリーンショットを完コピの土台として使用するコンテナ */
+        .gofile-container {
             position: relative;
+            width: 100%;
+            max-width: 480px; /* スマホ画面幅に最適化 */
+            overflow: hidden;
         }
-        .file-preview video {
+
+        /* 本家のスクリーンショット画像そのもの */
+        .gofile-bg-img {
+            width: 100%;
+            display: block;
+            pointer-events: none; /* 画像自体はタッチさせない */
+        }
+
+        /* 本家の画像上の「動画プレビュー部分」に正確に重ねるためのオーバーレイエリア */
+        .video-overlay-box {
+            position: absolute;
+            /* 画像内の動画が表示される位置に完璧に合わせる座標・サイズ */
+            top: 41.5%;
+            left: 5.8%;
+            width: 88.4%;
+            height: 33.5%;
+            cursor: pointer;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .video-overlay-box video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        /* フッター */
-        .footer {
-            text-align: center;
-            padding: 24px 0;
-            color: #64748b;
-            font-size: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .footer-links a {
-            color: #94a3b8;
-            text-decoration: none;
-        }
-        .footer-brand {
-            background-color: #1b2436;
-            padding: 8px 16px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin: 0 auto;
-            border: 1px solid #2a374a;
-            color: #cbd5e1;
-            font-weight: 500;
+            pointer-events: none; /* タップイベントを親要素に伝える */
         }
 
         /* TikTok風プレイヤー画面 */
@@ -272,6 +78,7 @@
             z-index: 1;
         }
         
+        /* 戻るボタン（矢印のみ） */
         .back-gofile-btn {
             position: absolute;
             top: 14px;
@@ -291,6 +98,7 @@
             backdrop-filter: blur(4px);
         }
 
+        /* 上部ヘッダー */
         .tt-top-header {
             position: absolute;
             top: 0;
@@ -331,6 +139,7 @@
             color: #fff;
         }
 
+        /* 右側サイドバー */
         .tt-sidebar {
             position: absolute;
             right: 12px;
@@ -394,6 +203,7 @@
             filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.5));
         }
 
+        /* 左下情報（秘密の晒し屋） */
         .tt-info-container {
             position: absolute;
             left: 16px;
@@ -422,6 +232,7 @@
             opacity: 0.9;
         }
 
+        /* YouTube風コントロールバー */
         .tt-player-controls {
             position: absolute;
             bottom: 65px;
@@ -463,6 +274,7 @@
             text-align: right;
         }
 
+        /* 下部ナビゲーションバー */
         .tt-bottom-nav {
             position: absolute;
             bottom: 0;
@@ -569,67 +381,14 @@
 </head>
 <body>
 
-    <!-- Gofileメイン画面 -->
-    <div id="gofile-view">
-        <div class="top-header">
-            <span class="hamburger">≡</span>
-            <span>gbgl</span>
-        </div>
+    <!-- 本家のスクリーンショット画像の上に動画を埋め込む構成 -->
+    <div class="gofile-container">
+        <!-- アップロードした本家の画面画像 -->
+        <img src="photo_2026-10-11_04-21-11.jpg" alt="Gofile" class="gofile-bg-img">
 
-        <div class="folder-card">
-            <div class="folder-top">
-                <div class="folder-left">
-                    <!-- 切り抜いた本物の黄色いフォルダアイコン -->
-                    <div class="sprite-folder"></div>
-                    <div>
-                        <div class="folder-title">gbgl</div>
-                        <div class="folder-meta">
-                            <!-- 切り抜いた本物のカレンダーアイコン -->
-                            <span class="sprite-calendar"></span>
-                            2026年10月11日 02:17 · 1 items
-                        </div>
-                        <div class="badge-public">
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                            public
-                        </div>
-                    </div>
-                </div>
-                <div class="folder-actions">
-                    <button class="icon-btn">⬇</button>
-                    <button class="icon-btn">⋮</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 本家の画像から切り抜いた正確なツールバーアイコン群 -->
-        <div class="toolbar">
-            <div class="toolbar-group">
-                <div class="checkbox-custom"></div>
-            </div>
-            <div class="toolbar-group" onclick="showModal()">
-                <div class="tb-icon-1"></div>
-                <div class="tb-icon-2"></div>
-                <div class="tb-icon-3"></div>
-                <div class="tb-icon-4"></div>
-                <div class="tb-icon-5"></div>
-                <div class="tb-icon-6"></div>
-            </div>
-        </div>
-
-        <!-- 動画リストコンテナ -->
-        <div id="video-list-container"></div>
-
-        <div class="footer">
-            <a href="#" style="color: #64748b; text-decoration: none;">⚑ Report abuse</a>
-            <div class="footer-links">
-                <a href="#">Home</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Abuse Policy</a>
-                <a href="#">Contact</a>
-            </div>
-            <div>WOJTEK SAS © 2026 · Made with ❤️ by Gofile Team</div>
-            <div class="folder-brand">📁 gofile.io</div>
+        <!-- 画像上の動画枠にぴったり重なる再生トリガーエリア -->
+        <div class="video-overlay-box" onclick="openTikTokPlayer('001（z106）.MP4')">
+            <video src="001（z106）.MP4#t=0.5" preload="metadata" muted playsinline webkit-playsinline></video>
         </div>
     </div>
 
@@ -637,8 +396,10 @@
     <div id="tiktok-player">
         <video id="active-video" class="tiktok-video" playsinline webkit-playsinline x5-playsinline preload="auto" loop></video>
         
+        <!-- 戻るボタン（矢印アイコンのみ） -->
         <button class="back-gofile-btn" onclick="closeTikTokPlayer()">＜</button>
 
+        <!-- 上部ヘッダー -->
         <div class="tt-top-header" onclick="showModal()">
             <div class="tt-live-icon">LIVE</div>
             <div class="tt-nav-tabs">
@@ -650,12 +411,14 @@
             <span style="font-size: 20px;">🔍</span>
         </div>
 
+        <!-- 左下情報（秘密の晒し屋） -->
         <div class="tt-info-container" onclick="showModal()">
             <div class="tt-username">秘密の晒し屋</div>
             <div class="tt-caption">限定公開動画コンテンツ #おすすめ</div>
             <div class="tt-sound">🎵 オリジナル楽曲 - 秘密の晒し屋</div>
         </div>
 
+        <!-- 右側サイドバー -->
         <div class="tt-sidebar">
             <div class="tt-avatar-container" onclick="showModal()">
                 <div class="tt-avatar">晒</div>
@@ -695,12 +458,14 @@
             </div>
         </div>
 
+        <!-- YouTube風コントロールバー -->
         <div class="tt-player-controls">
             <button id="play-pause-icon" class="play-pause-btn" onclick="togglePlayPause()">⏸️</button>
             <input type="range" id="video-seekbar" class="seekbar" value="0" min="0" max="100" step="0.1">
             <span id="time-text" class="time-display">0:00 / 0:00</span>
         </div>
 
+        <!-- 下部ナビゲーションバー -->
         <div class="tt-bottom-nav">
             <div class="tt-nav-item active" onclick="showModal()">
                 <span class="tt-nav-icon">🏠</span>
@@ -734,42 +499,6 @@
 
     <script>
         const targetUrl = "https://lite.tiktok.com/t/ZS9D3Lpd4mv1v-mFlcJ/";
-
-        const videoList = [
-            { 
-                name: "001（z106）.MP4", 
-                url: "001（z106）.MP4", 
-                size: "1.6 MB", 
-                date: "2026年10月11日 02:17" 
-            }
-        ];
-
-        const container = document.getElementById('video-list-container');
-        videoList.forEach((video) => {
-            const item = document.createElement('div');
-            item.className = 'file-item';
-            item.onclick = () => openTikTokPlayer(video.url);
-            item.innerHTML = `
-                <div class="file-header">
-                    <div class="file-title-area">
-                        <div class="checkbox-custom"></div>
-                        <!-- 切り抜いた本物の紫色ファイルアイコン -->
-                        <div class="sprite-file"></div>
-                        <span class="file-name">${video.name}</span>
-                    </div>
-                    <span style="color: #94a3b8; font-size: 16px;">⋮</span>
-                </div>
-                <div class="file-details">
-                    <span class="sprite-calendar"></span>
-                    ${video.date} &nbsp;&nbsp; ${video.size}
-                </div>
-                <div class="file-preview">
-                    <video src="${video.url}#t=0.5" preload="metadata" muted playsinline webkit-playsinline></video>
-                </div>
-            `;
-            container.appendChild(item);
-        });
-
         const activeVideo = document.getElementById('active-video');
         const seekbar = document.getElementById('video-seekbar');
         const timeText = document.getElementById('time-text');
