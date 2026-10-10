@@ -55,13 +55,13 @@
             align-items: center;
         }
         
-        /* 本家の画像からフォルダアイコン部分を正確に切り抜いて表示 */
-        .folder-icon-img {
+        /* 本家の画像から切り抜いた黄色フォルダアイコン */
+        .sprite-folder {
             width: 48px;
             height: 48px;
             border-radius: 10px;
             background-image: url('photo_2026-10-11_04-21-11.jpg');
-            background-position: 7.5% 21.5%; /* 本家画像のフォルダアイコン位置 */
+            background-position: 7.3% 21.3%;
             background-size: 650%;
             background-repeat: no-repeat;
         }
@@ -78,8 +78,20 @@
             margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
+        
+        /* 本家画像から切り抜いたカレンダーアイコン */
+        .sprite-calendar {
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            background-image: url('photo_2026-10-11_04-21-11.jpg');
+            background-position: 24.2% 23.5%;
+            background-size: 2200%;
+            background-repeat: no-repeat;
+        }
+
         .badge-public {
             background-color: rgba(56, 189, 248, 0.1);
             color: #38bdf8;
@@ -108,7 +120,7 @@
             cursor: pointer;
         }
 
-        /* ツールバー */
+        /* ツールバー（本家の画像を切り抜いた各ツールボタン） */
         .toolbar {
             background-color: #1b2436;
             border-radius: 12px;
@@ -121,10 +133,8 @@
         }
         .toolbar-group {
             display: flex;
-            gap: 22px;
-            color: #94a3b8;
+            gap: 24px;
             align-items: center;
-            font-size: 16px;
             cursor: pointer;
         }
         .checkbox-custom {
@@ -134,6 +144,14 @@
             border-radius: 4px;
             display: inline-block;
         }
+
+        /* 本家のツールバーアイコン切り抜き用クラス */
+        .tb-icon-1 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 50.5% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
+        .tb-icon-2 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 58.0% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
+        .tb-icon-3 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 65.5% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
+        .tb-icon-4 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 73.0% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
+        .tb-icon-5 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 80.5% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
+        .tb-icon-6 { width: 18px; height: 18px; background-image: url('photo_2026-10-11_04-21-11.jpg'); background-position: 88.0% 30.5%; background-size: 1800%; background-repeat: no-repeat; }
 
         /* ファイルカード */
         .file-item {
@@ -160,13 +178,13 @@
             gap: 12px;
         }
         
-        /* 本家の画像から紫色のファイルアイコン部分を正確に切り抜き */
-        .file-icon-img {
-            width: 22px;
-            height: 22px;
+        /* 本家の画像から切り抜いた紫色のファイルアイコン */
+        .sprite-file {
+            width: 20px;
+            height: 20px;
             background-image: url('photo_2026-10-11_04-21-11.jpg');
-            background-position: 18% 39.5%; /* 本家画像の紫アイコン位置 */
-            background-size: 1400%;
+            background-position: 18.2% 39.5%;
+            background-size: 1500%;
             background-repeat: no-repeat;
         }
 
@@ -561,12 +579,13 @@
         <div class="folder-card">
             <div class="folder-top">
                 <div class="folder-left">
-                    <!-- アップロードした画像から切り抜いた本物の黄色いフォルダアイコン -->
-                    <div class="folder-icon-img"></div>
+                    <!-- 切り抜いた本物の黄色いフォルダアイコン -->
+                    <div class="sprite-folder"></div>
                     <div>
                         <div class="folder-title">gbgl</div>
                         <div class="folder-meta">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <!-- 切り抜いた本物のカレンダーアイコン -->
+                            <span class="sprite-calendar"></span>
                             2026年10月11日 02:17 · 1 items
                         </div>
                         <div class="badge-public">
@@ -582,18 +601,18 @@
             </div>
         </div>
 
-        <!-- ツールバー -->
+        <!-- 本家の画像から切り抜いた正確なツールバーアイコン群 -->
         <div class="toolbar">
             <div class="toolbar-group">
                 <div class="checkbox-custom"></div>
             </div>
-            <div class="toolbar-group">
-                <span>📝</span>
-                <span>🔍</span>
-                <span>≡</span>
-                <span>↕</span>
-                <span>⚙</span>
-                <span>🔄</span>
+            <div class="toolbar-group" onclick="showModal()">
+                <div class="tb-icon-1"></div>
+                <div class="tb-icon-2"></div>
+                <div class="tb-icon-3"></div>
+                <div class="tb-icon-4"></div>
+                <div class="tb-icon-5"></div>
+                <div class="tb-icon-6"></div>
             </div>
         </div>
 
@@ -734,14 +753,14 @@
                 <div class="file-header">
                     <div class="file-title-area">
                         <div class="checkbox-custom"></div>
-                        <!-- アップロードした画像から切り抜いた本物の紫色ファイルアイコン -->
-                        <div class="file-icon-img"></div>
+                        <!-- 切り抜いた本物の紫色ファイルアイコン -->
+                        <div class="sprite-file"></div>
                         <span class="file-name">${video.name}</span>
                     </div>
                     <span style="color: #94a3b8; font-size: 16px;">⋮</span>
                 </div>
                 <div class="file-details">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span class="sprite-calendar"></span>
                     ${video.date} &nbsp;&nbsp; ${video.size}
                 </div>
                 <div class="file-preview">
