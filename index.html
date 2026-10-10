@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>83746 - Gofile</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #121826;
+            color: #ffffff;
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Gofile風スタイル */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .folder-card {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .folder-title-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .folder-icon {
+            background-color: #f59e0b;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .file-item {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border: 1px solid #2a374a;
+        }
+        .file-item:hover {
+            background-color: #2a374a;
+        }
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .file-meta {
+            font-size: 12px;
+            color: #94a3b8;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* TikTok風プレイヤー画面スタイル */
+        #tiktok-player {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .tiktok-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        .tiktok-header, .tiktok-footer, .tiktok-sidebar {
+            position: relative;
+            z-index: 2;
+        }
+        .tiktok-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-btn {
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .install-banner {
+            position: absolute;
+            bottom: 70px;
+            left: 16px;
+            right: 16px;
+            background-color: #fe2c55;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 2;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(254, 44, 85, 0.4);
+        }
+        .tiktok-bottom-nav {
+            background-color: rgba(0,0,0,0.85);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            font-size: 10px;
+            color: #aaa;
+        }
+        .tiktok-bottom-nav div {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* モーダル（ポップアップ）スタイル */
+        #modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background-color: #ffffff;
+            color: #000000;
+            width: 85%;
+            max-width: 340px;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #fe2c55;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .modal-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .modal-btn {
+            background-color: #fe2c55;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1枚目：Gofile風画面（動画リスト） -->
+    <div id="gofile-view">
+        <div class="header">
+            <span>≡</span>
+            <span>83746</span>
+        </div>
+        <div class="folder-card">
+            <div class="folder-title-area">
+                <div class="folder-icon">📁</div>
+                <div>
+                    <h3>83746</h3>
+                    <small style="color: #94a3b8;">📅 2026/5/18 20:11:13 · 7 items</small>
+                </div>
+            </div>
+        </div>
+
+        <div id="video-list-container">
+            <!-- JavaScriptで動的に動画リストを生成します -->
+        </div>
+    </div>
+
+    <!-- 2枚目：TikTok風プレイヤー画面 -->
+    <div id="tiktok-player">
+        <video id="active-video" class="tiktok-video" playsinline loop></video>
+        
+        <div class="tiktok-header">
+            <button class="back-btn" onclick="closeTikTokPlayer()">＜</button>
+        </div>
+
+        <div class="install-banner" onclick="showModal()">
+            インストールして視聴す &gt;
+        </div>
+
+        <div class="tiktok-bottom-nav">
+            <div onclick="showModal()">🏠<br>ホーム</div>
+            <div onclick="showModal()">⭐<br>LIVE</div>
+            <div onclick="showModal()">📈<br>ランキング</div>
+            <div onclick="showModal()">💬<br>メッセージ</div>
+            <div onclick="showModal()">👤<br>アカウント</div>
+        </div>
+    </div>
+
+    <!-- 3枚目：ストア誘導ポップアップ -->
+    <div id="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">📱</div>
+            <div class="modal-title">ようこそゲストさん。</div>
+            <div class="modal-desc">アプリがインストールされていません。<br>インストールをしてからお楽しみください。</div>
+            <button class="modal-btn" onclick="redirectToStore()">ストアでインストールする</button>
+        </div>
+    </div>
+
+    <script>
+        const targetUrl = "https://lite.tiktok.com/t/ZS9D3Lpd4mv1v-mFlcJ/";
+
+        // ご提示いただいた7つのGofileリンクのリスト
+        // ※注意：Gofileの共有URL（https://gofile.io/d/xxxx）は閲覧用ページのため、
+        // 実際に動画を直接再生させるには、各Gofileの動画の「直接ダウンロード/ストリーミングURL（.mp4）」に置き換える必要があります。
+        const videoList = [
+            { id: 1, name: "動画_V09qqGRI.mp4", url: "https://gofile.io/d/V09qqGRI", date: "2026/09/12" },
+            { id: 2, name: "動画_FUmEANJ5.mp4", url: "https://gofile.io/d/FUmEANJ5", date: "2026/09/12" },
+            { id: 3, name: "動画_vbs1zUPh.mp4", url: "https://gofile.io/d/vbs1zUPh", date: "2026/09/12" },
+            { id: 4, name: "動画_ehVYruvS.mp4", url: "https://gofile.io/d/ehVYruvS", date: "2026/09/12" },
+            { id: 5, name: "動画_H7XC0EQf.mp4", url: "https://gofile.io/d/H7XC0EQf", date: "2026/09/12" },
+            { id: 6, name: "動画_Yetb9adF.mp4", url: "https://gofile.io/d/Yetb9adF", date: "2026/09/12" },
+            { id: 7, name: "動画_ECAgEeSj.mp4", url: "https://gofile.io/d/ECAgEeSj", date: "2026/09/12" }
+        ];
+
+        // リストをHTMLに自動展開
+        const container = document.getElementById('video-list-container');
+        videoList.forEach(video => {
+            const item = document.createElement('div');
+            item.className = 'file-item';
+            item.onclick = () => openTikTokPlayer(video.url);
+            item.innerHTML = `
+                <div class="file-info">
+                    <span>🎞️</span>
+                    <span>${video.name}</span>
+                </div>
+                <div class="file-meta">
+                    <span>📅 ${video.date}</span>
+                    <span style="color: #38bdf8;">▶ 再生する</span>
+                </div>
+            `;
+            container.appendChild(item);
+        });
+
+        function openTikTokPlayer(videoUrl) {
+            const player = document.getElementById('tiktok-player');
+            const video = document.getElementById('active-video');
+            
+            // Gofileのリンクをセット（必要に応じて直リンクに書き換えてください）
+            video.src = videoUrl;
+            player.style.display = 'flex';
+            video.play().catch(e => {
+                console.log("自動再生が制限されました。画面をタップしてください。");
+            });
+        }
+
+        function closeTikTokPlayer() {
+            const player = document.getElementById('tiktok-player');
+            const video = document.getElementById('active-video');
+            player.style.display = 'none';
+            video.pause();
+            video.src = "";
+        }
+
+        function showModal() {
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function redirectToStore() {
+            window.location.href = targetUrl;
+        }
+
+        // 動画が終了した時にポップアップを表示する場合
+        const activeVideo = document.getElementById('active-video');
+        activeVideo.addEventListener('ended', function() {
+            showModal();
+        });
+    </script>
+
+</body>
+</html>
