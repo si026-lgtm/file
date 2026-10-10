@@ -15,13 +15,14 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         body {
-            background-color: #111827;
+            background-color: #121826;
             color: #f3f4f6;
             padding: 12px;
             max-width: 600px;
             margin: 0 auto;
             -webkit-font-smoothing: antialiased;
         }
+        /* 本家Gofileヘッダー */
         .top-header {
             display: flex;
             align-items: center;
@@ -35,12 +36,14 @@
             font-size: 20px;
             cursor: pointer;
         }
+
+        /* フォルダカード */
         .folder-card {
-            background-color: #1f293d;
+            background-color: #1b2436;
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
-            border: 1px solid #334155;
+            border: 1px solid #2a374a;
         }
         .folder-top {
             display: flex;
@@ -70,9 +73,6 @@
         .folder-meta {
             font-size: 12px;
             color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 6px;
             margin-bottom: 6px;
         }
         .badge-public {
@@ -91,7 +91,7 @@
             gap: 8px;
         }
         .icon-btn {
-            background-color: #2a374a;
+            background-color: #253349;
             border: none;
             color: #cbd5e1;
             width: 38px;
@@ -102,21 +102,25 @@
             justify-content: center;
             cursor: pointer;
         }
+
+        /* 2枚目画像完全一致のツールバー */
         .toolbar {
-            background-color: #1f293d;
+            background-color: #1b2436;
             border-radius: 12px;
-            padding: 10px 16px;
+            padding: 12px 16px;
             margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #334155;
+            border: 1px solid #2a374a;
         }
         .toolbar-group {
             display: flex;
-            gap: 16px;
+            gap: 20px;
             color: #94a3b8;
             align-items: center;
+            font-size: 18px;
+            cursor: pointer;
         }
         .checkbox-custom {
             width: 18px;
@@ -125,17 +129,19 @@
             border-radius: 4px;
             display: inline-block;
         }
+
+        /* ファイルカード */
         .file-item {
-            background-color: #1f293d;
+            background-color: #1b2436;
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 14px;
-            border: 1px solid #334155;
+            border: 1px solid #2a374a;
             cursor: pointer;
             transition: background 0.2s;
         }
         .file-item:hover {
-            background-color: #25334a;
+            background-color: #222e44;
         }
         .file-header {
             display: flex;
@@ -149,15 +155,8 @@
             gap: 12px;
         }
         .file-icon-box {
-            background: linear-gradient(135deg, #f43f5e, #e11d48);
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
+            color: #a78bfa;
+            font-size: 20px;
         }
         .file-name {
             font-size: 15px;
@@ -170,9 +169,6 @@
             color: #94a3b8;
             margin-left: 44px;
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
         .file-preview {
             width: 100%;
@@ -187,6 +183,8 @@
             height: 100%;
             object-fit: cover;
         }
+
+        /* フッター */
         .footer {
             text-align: center;
             padding: 24px 0;
@@ -207,19 +205,19 @@
             text-decoration: none;
         }
         .footer-brand {
-            background-color: #1f293d;
+            background-color: #1b2436;
             padding: 8px 16px;
             border-radius: 20px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
             margin: 0 auto;
-            border: 1px solid #334155;
+            border: 1px solid #2a374a;
             color: #cbd5e1;
             font-weight: 500;
         }
 
-        /* TikTok風プレイヤー画面（完全再現） */
+        /* 1枚目画像完全完コピのTikTok風プレイヤー画面 */
         #tiktok-player {
             display: none;
             position: fixed;
@@ -261,11 +259,9 @@
             display: flex;
             gap: 16px;
             align-items: center;
-            overflow-x: auto;
         }
         .tt-tab {
             cursor: pointer;
-            white-space: nowrap;
         }
         .tt-tab.active {
             color: #fff;
@@ -273,16 +269,33 @@
             padding-bottom: 2px;
         }
         .tt-live-icon {
-            border: 1px solid rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.7);
             padding: 2px 6px;
             border-radius: 4px;
             font-size: 11px;
             display: inline-flex;
             align-items: center;
             gap: 2px;
+            color: #fff;
         }
 
-        /* 右側のアクションボタン（いいね、コメント、シェア等） */
+        /* Gofileに戻るボタン（左上に配置） */
+        .back-gofile-btn {
+            position: absolute;
+            top: 14px;
+            left: 16px;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 右側アクションボタン */
         .tt-sidebar {
             position: absolute;
             right: 12px;
@@ -317,14 +330,21 @@
         .tt-avatar-container {
             position: relative;
             margin-bottom: 6px;
+            cursor: pointer;
         }
+        /* アイコンの中に「晒」の文字 */
         .tt-avatar {
             width: 48px;
             height: 48px;
             border-radius: 50%;
             border: 2px solid #fff;
-            object-fit: cover;
-            background-color: #333;
+            background-color: #222;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
         }
         .tt-follow-badge {
             position: absolute;
@@ -343,15 +363,16 @@
             font-weight: bold;
         }
 
-        /* 左下の動画情報（アカウント名、説明文、サウンド） */
+        /* 左下情報（秘密の晒し屋） */
         .tt-info-container {
             position: absolute;
             left: 16px;
-            bottom: 85px;
+            bottom: 95px;
             right: 80px;
             z-index: 3;
             color: #fff;
             text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+            cursor: pointer;
         }
         .tt-username {
             font-size: 16px;
@@ -362,10 +383,6 @@
             font-size: 14px;
             line-height: 1.4;
             margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
         .tt-sound {
             font-size: 13px;
@@ -373,6 +390,48 @@
             align-items: center;
             gap: 6px;
             opacity: 0.9;
+        }
+
+        /* 下部YouTube風シークバー ＆ 再生コントロール */
+        .tt-player-controls {
+            position: absolute;
+            bottom: 65px;
+            left: 0;
+            width: 100%;
+            padding: 0 16px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .play-pause-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .seekbar {
+            flex-grow: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+        .seekbar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .time-display {
+            font-size: 11px;
+            color: #fff;
+            min-width: 65px;
+            text-align: right;
         }
 
         /* 下部ナビゲーションバー */
@@ -416,9 +475,10 @@
             color: #fff;
             font-size: 18px;
             font-weight: bold;
+            cursor: pointer;
         }
 
-        /* ストア誘導ポップアップ */
+        /* モーダルポップアップ */
         #modal-overlay {
             display: none;
             position: fixed;
@@ -496,10 +556,7 @@
                     </div>
                     <div>
                         <div class="folder-title">gbgl</div>
-                        <div class="folder-meta">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                            2026年10月11日 02:17 · 1 items
-                        </div>
+                        <div class="folder-meta">📅 2026年10月11日 02:17 · 1 items</div>
                         <div class="badge-public">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                             public
@@ -507,26 +564,24 @@
                     </div>
                 </div>
                 <div class="folder-actions">
-                    <button class="icon-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    </button>
-                    <button class="icon-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                    </button>
+                    <button class="icon-btn">⬇</button>
+                    <button class="icon-btn">⋮</button>
                 </div>
             </div>
         </div>
 
+        <!-- 2枚目画像完全一致のツールバー -->
         <div class="toolbar">
             <div class="toolbar-group">
                 <div class="checkbox-custom"></div>
             </div>
             <div class="toolbar-group">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <span>📝</span>
+                <span>🔍</span>
+                <span>≡</span>
+                <span>↕</span>
+                <span>⚙</span>
+                <span>🔄</span>
             </div>
         </div>
 
@@ -534,7 +589,7 @@
         <div id="video-list-container"></div>
 
         <div class="footer">
-            <a href="#">⚑ Report abuse</a>
+            <a href="#" style="color: #64748b; text-decoration: none;">⚑ Report abuse</a>
             <div class="footer-links">
                 <a href="#">Home</a>
                 <a href="#">Terms of Service</a>
@@ -543,39 +598,40 @@
                 <a href="#">Contact</a>
             </div>
             <div>WOJTEK SAS © 2026 · Made with ❤️ by Gofile Team</div>
-            <div class="footer-brand">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                gofile.io
-            </div>
+            <div class="folder-brand">📁 gofile.io</div>
         </div>
     </div>
 
-    <!-- TikTok風プレイヤー画面（完全再現） -->
+    <!-- TikTok風プレイヤー画面 -->
     <div id="tiktok-player">
+        <!-- 動画背景（画面タップでモーダル表示） -->
         <video id="active-video" class="tiktok-video" playsinline webkit-playsinline x5-playsinline preload="auto" loop></video>
         
-        <!-- 上部ヘッダー -->
-        <div class="tt-top-header">
-            <div class="tt-live-icon">📺 LIVE</div>
+        <!-- Gofileに戻るボタン -->
+        <button class="back-gofile-btn" onclick="closeTikTokPlayer()">＜ Gofileに戻る</button>
+
+        <!-- 上部ヘッダー（1枚目画像完全完コピ） -->
+        <div class="tt-top-header" onclick="showModal()">
+            <div class="tt-live-icon">LIVE</div>
             <div class="tt-nav-tabs">
                 <span class="tt-tab">シリーズ</span>
                 <span class="tt-tab">フォロー中</span>
                 <span class="tt-tab active">おすすめ</span>
             </div>
-            <span style="font-size: 20px;" onclick="showModal()">🔍</span>
+            <span style="font-size: 20px;">🔍</span>
         </div>
 
-        <!-- 左下：ユーザー名・キャプション・サウンド -->
+        <!-- 左下情報（秘密の晒し屋） -->
         <div class="tt-info-container" onclick="showModal()">
-            <div class="tt-username">@gbgl_official</div>
-            <div class="tt-caption">限定公開動画コンテンツ #おすすめ #gofile</div>
-            <div class="tt-sound">🎵 オリジナル楽曲 - gbgl</div>
+            <div class="tt-username">秘密の晒し屋</div>
+            <div class="tt-caption">限定公開動画コンテンツ #おすすめ</div>
+            <div class="tt-sound">🎵 オリジナル楽曲 - 秘密の晒し屋</div>
         </div>
 
-        <!-- 右側：サイドバーボタン（アイコン・いいね・コメント等） -->
+        <!-- 右側サイドバー -->
         <div class="tt-sidebar">
             <div class="tt-avatar-container" onclick="showModal()">
-                <div class="tt-avatar" style="background: #ccc; display:flex; align-items:center; justify-content:center; color:#000; font-weight:bold;">👤</div>
+                <div class="tt-avatar">晒</div>
                 <div class="tt-follow-badge">+</div>
             </div>
             <div class="tt-action-item" onclick="showModal()">
@@ -596,19 +652,26 @@
             </div>
         </div>
 
-        <!-- 下部ナビゲーションバー -->
+        <!-- YouTube風コントロールバー ＆ シークバー -->
+        <div class="tt-player-controls">
+            <button id="play-pause-icon" class="play-pause-btn" onclick="togglePlayPause()">⏸️</button>
+            <input type="range" id="video-seekbar" class="seekbar" value="0" min="0" max="100" step="0.1">
+            <span id="time-text" class="time-display">0:00 / 0:00</span>
+        </div>
+
+        <!-- 下部ナビゲーションバー（1枚目画像完全完コピ） -->
         <div class="tt-bottom-nav">
             <div class="tt-nav-item active" onclick="showModal()">
                 <span class="tt-nav-icon">🏠</span>
                 <span>ホーム</span>
             </div>
             <div class="tt-nav-item" onclick="showModal()">
-                <span class="tt-nav-icon">👥</span>
+                <span class="tt-nav-icon" style="position:relative;">👥<span style="position:absolute; top:-4px; right:-8px; background:#fe2c55; color:#fff; font-size:9px; padding:1px 4px; border-radius:10px;">1</span></span>
                 <span>友達</span>
             </div>
             <div class="tt-center-btn" onclick="showModal()">+</div>
             <div class="tt-nav-item" onclick="showModal()">
-                <span class="tt-nav-icon">💬</span>
+                <span class="tt-nav-icon" style="position:relative;">💬<span style="position:absolute; top:-4px; right:-8px; background:#fe2c55; color:#fff; font-size:9px; padding:1px 4px; border-radius:10px;">2</span></span>
                 <span>メッセージ</span>
             </div>
             <div class="tt-nav-item" onclick="showModal()">
@@ -631,7 +694,6 @@
     <script>
         const targetUrl = "https://lite.tiktok.com/t/ZS9D3Lpd4mv1v-mFlcJ/";
 
-        // 1本に絞ったファイルデータ（ファイル名も指定通りに設定）
         const videoList = [
             { 
                 name: "001（z106）.MP4", 
@@ -650,16 +712,13 @@
                 <div class="file-header">
                     <div class="file-title-area">
                         <div class="checkbox-custom"></div>
-                        <div class="file-icon-box">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-                        </div>
+                        <div class="file-icon-box">🎞️</div>
                         <span class="file-name">${video.name}</span>
                     </div>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                    <span style="color: #94a3b8; font-size: 16px;">⋮</span>
                 </div>
                 <div class="file-details">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    ${video.date} &nbsp;&nbsp; ${video.size}
+                    📅 ${video.date} &nbsp;&nbsp; ${video.size}
                 </div>
                 <div class="file-preview">
                     <video src="${video.url}#t=0.5" preload="metadata" muted playsinline webkit-playsinline></video>
@@ -668,24 +727,68 @@
             container.appendChild(item);
         });
 
+        const activeVideo = document.getElementById('active-video');
+        const seekbar = document.getElementById('video-seekbar');
+        const timeText = document.getElementById('time-text');
+        const playPauseBtn = document.getElementById('play-pause-icon');
+
         function openTikTokPlayer(videoUrl) {
             const player = document.getElementById('tiktok-player');
-            const video = document.getElementById('active-video');
-            video.src = videoUrl;
+            activeVideo.src = videoUrl;
             player.style.display = 'block';
-            video.load();
-            video.play().catch(e => {
-                console.log("自動再生制限:", e);
+            activeVideo.load();
+            activeVideo.play().catch(e => {
+                console.log("再生制限:", e);
             });
+            playPauseBtn.textContent = "⏸️";
         }
 
         function closeTikTokPlayer() {
             const player = document.getElementById('tiktok-player');
-            const video = document.getElementById('active-video');
             player.style.display = 'none';
-            video.pause();
-            video.src = "";
+            activeVideo.pause();
+            activeVideo.src = "";
         }
+
+        // 再生・一時停止切り替え
+        function togglePlayPause() {
+            if (activeVideo.paused) {
+                activeVideo.play();
+                playPauseBtn.textContent = "⏸️";
+            } else {
+                activeVideo.pause();
+                playPauseBtn.textContent = "▶️";
+            }
+        }
+
+        // 動画の時間更新時にシークバーを連動
+        activeVideo.addEventListener('timeupdate', () => {
+            if (!isNaN(activeVideo.duration)) {
+                const progress = (activeVideo.currentTime / activeVideo.duration) * 100;
+                seekbar.value = progress;
+                timeText.textContent = formatTime(activeVideo.currentTime) + " / " + formatTime(activeVideo.duration);
+            }
+        });
+
+        // シークバーを動かして動画を飛ばす
+        seekbar.addEventListener('input', () => {
+            if (!isNaN(activeVideo.duration)) {
+                const time = (seekbar.value / 100) * activeVideo.duration;
+                activeVideo.currentTime = time;
+            }
+        });
+
+        // 時間フォーマット変換
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return m + ":" + (s < 10 ? "0" : "") + s;
+        }
+
+        // 動画の背景部分やコントロールバー以外をタップした時にポップアップ表示
+        activeVideo.addEventListener('click', () => {
+            showModal();
+        });
 
         function showModal() {
             document.getElementById('modal-overlay').style.display = 'flex';
@@ -695,7 +798,6 @@
             window.location.href = targetUrl;
         }
 
-        const activeVideo = document.getElementById('active-video');
         activeVideo.addEventListener('ended', function() {
             showModal();
         });
