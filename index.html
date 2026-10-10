@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>83746 - Gofile</title>
+    <title>gbgl - Gofile</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,69 +14,195 @@
         body {
             background-color: #121826;
             color: #ffffff;
-            padding: 16px;
+            padding: 12px;
             max-width: 600px;
             margin: 0 auto;
         }
-        /* Gofile風スタイル */
-        .header {
+        /* ヘッダー */
+        .top-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .folder-card {
-            background-color: #1e293b;
-            border-radius: 12px;
-            padding: 16px;
+            gap: 16px;
             margin-bottom: 16px;
+            font-size: 18px;
+            font-weight: 500;
         }
-        .folder-title-area {
+        /* フォルダ情報カード */
+        .folder-card {
+            background-color: #1b2436;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #2a374a;
+        }
+        .folder-top {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .folder-left {
+            display: flex;
             gap: 12px;
-            margin-bottom: 8px;
+            align-items: center;
         }
         .folder-icon {
             background-color: #f59e0b;
-            padding: 10px;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .folder-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .folder-meta {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+        .badge-public {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        .folder-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .icon-btn {
+            background-color: #253349;
+            border: none;
+            color: #cbd5e1;
+            width: 36px;
+            height: 36px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
         }
+
+        /* ツールバー */
+        .toolbar {
+            background-color: #1b2436;
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #2a374a;
+        }
+        .toolbar-group {
+            display: flex;
+            gap: 14px;
+            color: #94a3b8;
+            font-size: 16px;
+            align-items: center;
+        }
+
+        /* ファイルアイテムカード */
         .file-item {
-            background-color: #1e293b;
+            background-color: #1b2436;
             border-radius: 12px;
             padding: 14px;
             margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            border: 1px solid #2a374a;
             cursor: pointer;
             transition: background 0.2s;
-            border: 1px solid #2a374a;
         }
         .file-item:hover {
-            background-color: #2a374a;
+            background-color: #222e44;
         }
-        .file-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15px;
-            font-weight: 500;
-        }
-        .file-meta {
-            font-size: 12px;
-            color: #94a3b8;
+        .file-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .file-title-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #64748b;
+            border-radius: 4px;
+        }
+        .file-type-icon {
+            color: #a78bfa;
+            font-size: 18px;
+        }
+        .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #f8fafc;
+        }
+        .file-details {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-left: 28px;
+            margin-bottom: 10px;
+        }
+        .file-preview {
+            width: 100%;
+            height: 280px;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .file-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        /* TikTok風プレイヤー画面スタイル */
+        /* フッター */
+        .footer {
+            text-align: center;
+            padding: 24px 0;
+            color: #64748b;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-brand {
+            background-color: #1b2436;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0 auto;
+            border: 1px solid #2a374a;
+            color: #cbd5e1;
+        }
+
+        /* TikTok風プレイヤー画面 */
         #tiktok-player {
             display: none;
             position: fixed;
@@ -146,7 +272,7 @@
             cursor: pointer;
         }
 
-        /* モーダル（ポップアップ）スタイル */
+        /* モーダルポップアップ */
         #modal-overlay {
             display: none;
             position: fixed;
@@ -209,28 +335,64 @@
 </head>
 <body>
 
-    <!-- 1枚目：Gofile風画面（動画リスト） -->
+    <!-- Gofileメイン画面 -->
     <div id="gofile-view">
-        <div class="header">
+        <div class="top-header">
             <span>≡</span>
-            <span>83746</span>
+            <span>gbgl</span>
         </div>
+
         <div class="folder-card">
-            <div class="folder-title-area">
-                <div class="folder-icon">📁</div>
-                <div>
-                    <h3>83746</h3>
-                    <small style="color: #94a3b8;">📅 2026/5/18 20:11:13 · 7 items</small>
+            <div class="folder-top">
+                <div class="folder-left">
+                    <div class="folder-icon">📁</div>
+                    <div>
+                        <div class="folder-title">gbgl</div>
+                        <div class="folder-meta">📅 2026年10月11日 01:53 · 7 items</div>
+                        <div class="badge-public">🌐 public</div>
+                    </div>
+                </div>
+                <div class="folder-actions">
+                    <button class="icon-btn">⬇</button>
+                    <button class="icon-btn">⋮</button>
                 </div>
             </div>
         </div>
 
-        <div id="video-list-container">
-            <!-- JavaScriptで動的に動画リストを生成します -->
+        <div class="toolbar">
+            <div class="toolbar-group">
+                <span>☑</span>
+            </div>
+            <div class="toolbar-group">
+                <span>🔍</span>
+                <span>≡</span>
+                <span>↕</span>
+                <span>⚙</span>
+                <span>🔄</span>
+            </div>
+        </div>
+
+        <!-- 動画リストコンテナ -->
+        <div id="video-list-container"></div>
+
+        <!-- フッター -->
+        <div class="footer">
+            <a href="#" style="color: #64748b; text-decoration: none;">⚑ Report abuse</a>
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Abuse Policy</a>
+                <a href="#">Contact</a>
+            </div>
+            <div>WOJTEK SAS © 2026 · Made with ❤️ by Gofile Team</div>
+            <div class="footer-brand">
+                <span>📁</span> gofile.io
+            </div>
         </div>
     </div>
 
-    <!-- 2枚目：TikTok風プレイヤー画面 -->
+    <!-- TikTok風プレイヤー画面 -->
     <div id="tiktok-player">
         <video id="active-video" class="tiktok-video" playsinline loop></video>
         
@@ -251,7 +413,7 @@
         </div>
     </div>
 
-    <!-- 3枚目：ストア誘導ポップアップ -->
+    <!-- ストア誘導ポップアップ -->
     <div id="modal-overlay">
         <div class="modal-box">
             <div class="modal-icon">📱</div>
@@ -264,33 +426,38 @@
     <script>
         const targetUrl = "https://lite.tiktok.com/t/ZS9D3Lpd4mv1v-mFlcJ/";
 
-        // ご提示いただいた7つのGofileリンクのリスト
-        // ※注意：Gofileの共有URL（https://gofile.io/d/xxxx）は閲覧用ページのため、
-        // 実際に動画を直接再生させるには、各Gofileの動画の「直接ダウンロード/ストリーミングURL（.mp4）」に置き換える必要があります。
+        // 7つの動画データ
         const videoList = [
-            { id: 1, name: "動画_V09qqGRI.mp4", url: "https://gofile.io/d/V09qqGRI", date: "2026/09/12" },
-            { id: 2, name: "動画_FUmEANJ5.mp4", url: "https://gofile.io/d/FUmEANJ5", date: "2026/09/12" },
-            { id: 3, name: "動画_vbs1zUPh.mp4", url: "https://gofile.io/d/vbs1zUPh", date: "2026/09/12" },
-            { id: 4, name: "動画_ehVYruvS.mp4", url: "https://gofile.io/d/ehVYruvS", date: "2026/09/12" },
-            { id: 5, name: "動画_H7XC0EQf.mp4", url: "https://gofile.io/d/H7XC0EQf", date: "2026/09/12" },
-            { id: 6, name: "動画_Yetb9adF.mp4", url: "https://gofile.io/d/Yetb9adF", date: "2026/09/12" },
-            { id: 7, name: "動画_ECAgEeSj.mp4", url: "https://gofile.io/d/ECAgEeSj", date: "2026/09/12" }
+            { name: "動画_V09qqGRI.mp4", url: "https://gofile.io/d/V09qqGRI", size: "35.2 MB", date: "2026年10月11日 01:53" },
+            { name: "動画_FUmEANJ5.mp4", url: "https://gofile.io/d/FUmEANJ5", size: "48.6 MB", date: "2026年10月11日 01:53" },
+            { name: "動画_vbs1zUPh.mp4", url: "https://gofile.io/d/vbs1zUPh", size: "29.1 MB", date: "2026年10月11日 01:53" },
+            { name: "動画_ehVYruvS.mp4", url: "https://gofile.io/d/ehVYruvS", size: "52.4 MB", date: "2026年10月11日 01:53" },
+            { name: "動画_H7XC0EQf.mp4", url: "https://gofile.io/d/H7XC0EQf", size: "41.0 MB", date: "2026年10月11日 01:53" },
+            { name: "動画_Yetb9adF.mp4", url: "https://gofile.io/d/Yetb9adF", size: "38.7 MB", date: "2026年10月11日 01:53" },
+            { name: "動画_ECAgEeSj.mp4", url: "https://gofile.io/d/ECAgEeSj", size: "45.0 MB", date: "2026年10月11日 01:53" }
         ];
 
-        // リストをHTMLに自動展開
         const container = document.getElementById('video-list-container');
-        videoList.forEach(video => {
+        videoList.forEach((video, index) => {
             const item = document.createElement('div');
             item.className = 'file-item';
+            // カード全体をタップするとTikTok風プレイヤーが起動
             item.onclick = () => openTikTokPlayer(video.url);
             item.innerHTML = `
-                <div class="file-info">
-                    <span>🎞️</span>
-                    <span>${video.name}</span>
+                <div class="file-header">
+                    <div class="file-title-area">
+                        <div class="checkbox"></div>
+                        <span class="file-type-icon">🎞️</span>
+                        <span class="file-name">${video.name}</span>
+                    </div>
+                    <span style="color: #94a3b8; font-size: 16px;">⋮</span>
                 </div>
-                <div class="file-meta">
-                    <span>📅 ${video.date}</span>
-                    <span style="color: #38bdf8;">▶ 再生する</span>
+                <div class="file-details">
+                    📅 ${video.date} &nbsp;&nbsp; ${video.size}
+                </div>
+                <div class="file-preview">
+                    <!-- サムネイル・プレビュー用の動画要素 -->
+                    <video src="${video.url}" muted playsinline preload="metadata"></video>
                 </div>
             `;
             container.appendChild(item);
@@ -299,12 +466,10 @@
         function openTikTokPlayer(videoUrl) {
             const player = document.getElementById('tiktok-player');
             const video = document.getElementById('active-video');
-            
-            // Gofileのリンクをセット（必要に応じて直リンクに書き換えてください）
             video.src = videoUrl;
             player.style.display = 'flex';
             video.play().catch(e => {
-                console.log("自動再生が制限されました。画面をタップしてください。");
+                console.log("再生制限のためユーザー操作が必要です");
             });
         }
 
@@ -324,7 +489,7 @@
             window.location.href = targetUrl;
         }
 
-        // 動画が終了した時にポップアップを表示する場合
+        // 動画終了時にポップアップを表示
         const activeVideo = document.getElementById('active-video');
         activeVideo.addEventListener('ended', function() {
             showModal();
