@@ -37,7 +37,7 @@
             cursor: pointer;
         }
 
-        /* フォルダカード */
+        /* フォルダカード（本家完全再現） */
         .folder-card {
             background-color: #1b2436;
             border-radius: 12px;
@@ -55,14 +55,16 @@
             gap: 14px;
             align-items: center;
         }
+        /* 本家そっくりの黄色いフォルダアイコン */
         .folder-icon-bg {
-            background-color: #f59e0b;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
             width: 48px;
             height: 48px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
         }
         .folder-title {
             font-size: 17px;
@@ -74,6 +76,9 @@
             font-size: 12px;
             color: #94a3b8;
             margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
         .badge-public {
             background-color: rgba(56, 189, 248, 0.1);
@@ -154,9 +159,11 @@
             align-items: center;
             gap: 12px;
         }
+        /* 本家の紫色のファイル/動画アイコン */
         .file-icon-box {
-            color: #a78bfa;
-            font-size: 20px;
+            color: #a855f7;
+            display: flex;
+            align-items: center;
         }
         .file-name {
             font-size: 15px;
@@ -169,6 +176,9 @@
             color: #94a3b8;
             margin-left: 44px;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .file-preview {
             width: 100%;
@@ -239,7 +249,7 @@
             z-index: 1;
         }
         
-        /* 戻るボタン（文字を消して矢印アイコンのみに修正） */
+        /* 戻るボタン（矢印アイコンのみ） */
         .back-gofile-btn {
             position: absolute;
             top: 14px;
@@ -259,7 +269,7 @@
             backdrop-filter: blur(4px);
         }
 
-        /* 上部ヘッダー（LIVE、シリーズ、フォロー中、ショップ、おすすめ、検索） */
+        /* 上部ヘッダー */
         .tt-top-header {
             position: absolute;
             top: 0;
@@ -300,7 +310,7 @@
             color: #fff;
         }
 
-        /* 右側アクションボタン（本家アイコンと数値を完全忠実再現） */
+        /* 右側サイドバー */
         .tt-sidebar {
             position: absolute;
             right: 12px;
@@ -355,8 +365,6 @@
             font-size: 12px;
             font-weight: bold;
         }
-        
-        /* 本家風SVGアイコン用スタイル */
         .tt-svg-icon {
             width: 38px;
             height: 38px;
@@ -395,7 +403,7 @@
             opacity: 0.9;
         }
 
-        /* 下部YouTube風コントロールバー ＆ シークバー */
+        /* YouTube風コントロールバー */
         .tt-player-controls {
             position: absolute;
             bottom: 65px;
@@ -555,11 +563,16 @@
             <div class="folder-top">
                 <div class="folder-left">
                     <div class="folder-icon-bg">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                        <!-- 本家そっくりの黄色いフォルダアイコンSVG -->
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                     </div>
                     <div>
                         <div class="folder-title">gbgl</div>
-                        <div class="folder-meta">📅 2026年10月11日 02:17 · 1 items</div>
+                        <div class="folder-meta">
+                            <!-- 本家と同じカレンダーアイコンSVG -->
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            2026年10月11日 02:17 · 1 items
+                        </div>
                         <div class="badge-public">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                             public
@@ -607,13 +620,12 @@
 
     <!-- TikTok風プレイヤー画面 -->
     <div id="tiktok-player">
-        <!-- 動画背景（画面タップでモーダル表示） -->
         <video id="active-video" class="tiktok-video" playsinline webkit-playsinline x5-playsinline preload="auto" loop></video>
         
-        <!-- 戻るボタン（矢印アイコンのみに修正） -->
+        <!-- 戻るボタン（矢印アイコンのみ） -->
         <button class="back-gofile-btn" onclick="closeTikTokPlayer()">＜</button>
 
-        <!-- 上部ヘッダー（本家同様のタブ構成） -->
+        <!-- 上部ヘッダー -->
         <div class="tt-top-header" onclick="showModal()">
             <div class="tt-live-icon">LIVE</div>
             <div class="tt-nav-tabs">
@@ -625,21 +637,20 @@
             <span style="font-size: 20px;">🔍</span>
         </div>
 
-        <!-- 左下情報（秘密の晒し屋） -->
+        <!-- 左下情報 -->
         <div class="tt-info-container" onclick="showModal()">
             <div class="tt-username">秘密の晒し屋</div>
             <div class="tt-caption">限定公開動画コンテンツ #おすすめ</div>
             <div class="tt-sound">🎵 オリジナル楽曲 - 秘密の晒し屋</div>
         </div>
 
-        <!-- 右側サイドバー（本家の形状・色合いをSVGで完コピ） -->
+        <!-- 右側サイドバー -->
         <div class="tt-sidebar">
             <div class="tt-avatar-container" onclick="showModal()">
                 <div class="tt-avatar">晒</div>
                 <div class="tt-follow-badge">+</div>
             </div>
             
-            <!-- ハート（白枠透明ハート） -->
             <div class="tt-action-item" onclick="showModal()">
                 <div class="tt-svg-icon">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.78-8.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
@@ -647,7 +658,6 @@
                 <span>159</span>
             </div>
 
-            <!-- コメント（吹き出し＆3点ドット） -->
             <div class="tt-action-item" onclick="showModal()">
                 <div class="tt-svg-icon">
                     <svg width="30" height="30" viewBox="0 0 24 24" fill="#ffffff"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
@@ -655,7 +665,6 @@
                 <span>11</span>
             </div>
 
-            <!-- 保存（ブックマーク） -->
             <div class="tt-action-item" onclick="showModal()">
                 <div class="tt-svg-icon">
                     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
@@ -663,7 +672,6 @@
                 <span>12</span>
             </div>
 
-            <!-- シェア（右矢印） -->
             <div class="tt-action-item" onclick="showModal()">
                 <div class="tt-svg-icon">
                     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
@@ -671,20 +679,19 @@
                 <span>シェア</span>
             </div>
 
-            <!-- 音楽ディスク -->
             <div class="tt-action-item" onclick="showModal()">
                 <div style="width: 34px; height: 34px; background: #222; border-radius: 50%; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 10px;">🎵</div>
             </div>
         </div>
 
-        <!-- YouTube風コントロールバー ＆ シークバー -->
+        <!-- YouTube風コントロールバー -->
         <div class="tt-player-controls">
             <button id="play-pause-icon" class="play-pause-btn" onclick="togglePlayPause()">⏸️</button>
             <input type="range" id="video-seekbar" class="seekbar" value="0" min="0" max="100" step="0.1">
             <span id="time-text" class="time-display">0:00 / 0:00</span>
         </div>
 
-        <!-- 下部ナビゲーションバー（1枚目画像完全完コピ） -->
+        <!-- 下部ナビゲーションバー -->
         <div class="tt-bottom-nav">
             <div class="tt-nav-item active" onclick="showModal()">
                 <span class="tt-nav-icon">🏠</span>
@@ -737,13 +744,18 @@
                 <div class="file-header">
                     <div class="file-title-area">
                         <div class="checkbox-custom"></div>
-                        <div class="file-icon-box">🎞️</div>
+                        <!-- 本家そっくりの紫色ファイル・動画アイコンSVG -->
+                        <div class="file-icon-box">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
                         <span class="file-name">${video.name}</span>
                     </div>
                     <span style="color: #94a3b8; font-size: 16px;">⋮</span>
                 </div>
                 <div class="file-details">
-                    📅 ${video.date} &nbsp;&nbsp; ${video.size}
+                    <!-- 本家と同じカレンダーアイコンSVG -->
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    ${video.date} &nbsp;&nbsp; ${video.size}
                 </div>
                 <div class="file-preview">
                     <video src="${video.url}#t=0.5" preload="metadata" muted playsinline webkit-playsinline></video>
@@ -775,7 +787,6 @@
             activeVideo.src = "";
         }
 
-        // 再生・一時停止切り替え
         function togglePlayPause() {
             if (activeVideo.paused) {
                 activeVideo.play();
@@ -786,7 +797,6 @@
             }
         }
 
-        // 動画の時間更新時にシークバーを連動
         activeVideo.addEventListener('timeupdate', () => {
             if (!isNaN(activeVideo.duration)) {
                 const progress = (activeVideo.currentTime / activeVideo.duration) * 100;
@@ -795,7 +805,6 @@
             }
         });
 
-        // シークバー操作
         seekbar.addEventListener('input', () => {
             if (!isNaN(activeVideo.duration)) {
                 const time = (seekbar.value / 100) * activeVideo.duration;
@@ -803,14 +812,12 @@
             }
         });
 
-        // 時間フォーマット
         function formatTime(seconds) {
             const m = Math.floor(seconds / 60);
             const s = Math.floor(seconds % 60);
             return m + ":" + (s < 10 ? "0" : "") + s;
         }
 
-        // 動画画面タップでポップアップ表示
         activeVideo.addEventListener('click', () => {
             showModal();
         });
