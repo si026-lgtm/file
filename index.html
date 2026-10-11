@@ -614,14 +614,15 @@
       color: #111;
     }
     .modal-points {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
       color: #fe2c55;
       background: #fff0f3;
-      padding: 4px 12px;
+      padding: 6px 12px;
       border-radius: 20px;
       display: inline-block;
-      margin: 2px 0;
+      margin: 4px 0;
+      width: 100%;
     }
     .modal-warning {
       font-size: 14px;
@@ -643,7 +644,7 @@
       font-weight: bold;
       font-size: 15px;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 4px;
       box-shadow: 0 4px 12px rgba(254, 44, 85, 0.3);
       transition: opacity 0.2s;
     }
@@ -852,15 +853,16 @@
   <div id="modal-overlay">
     <div class="modal-box">
       <div class="modal-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        <!-- 白色の稲妻アイコンに変更 -->
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
       </div>
       <div class="modal-title">ようこそゲストさん。</div>
-      <div class="modal-points">✨ 今なら、最大200000ポイントゲット ✨</div>
       <div class="modal-warning">⚠️ リンク削除の恐れあり！</div>
       <div class="modal-desc">
         このページは予告なく削除される可能性があります。<br>
         アプリをダウンロードして、動画を端末に保存・プレイリストに追加しておきましょう！
       </div>
+      <div class="modal-points">✨ 今なら、最大200000ポイントゲット ✨</div>
       <button class="modal-btn" onclick="redirectToStore()">ストアでインストールする</button>
     </div>
   </div>
@@ -912,7 +914,6 @@
       const positiveHash = Math.abs(hash);
 
       const likes = 2000 + (positiveHash % 3001);
-      // コメント数を15〜40の範囲でランダムに設定
       const comments = 15 + (positiveHash % 26);
       const saves = 700 + (positiveHash % 1301);
 
