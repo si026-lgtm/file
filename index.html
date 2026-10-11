@@ -285,7 +285,7 @@
       position: absolute;
       top: 14px;
       left: 14px;
-      z-index: 15; /* 上部バーより手前に配置 */
+      z-index: 15;
       background: rgba(0, 0, 0, 0.4);
       color: #fff;
       border: none;
@@ -300,7 +300,6 @@
       backdrop-filter: blur(4px);
     }
 
-    /* 上部バー：左の余白を詰め、全体に均等配置（1枚目の画像イメージに調整） */
     .tt-top-header {
       position: absolute;
       top: 0;
@@ -509,7 +508,6 @@
       text-align: right;
     }
 
-    /* ===== 下部ナビ ===== */
     .bottom-nav {
       position: absolute;
       bottom: 0;
@@ -631,11 +629,20 @@
       font-weight: bold;
       color: #111;
     }
-    .modal-warning {
-      font-size: 15px;
+    .modal-points {
+      font-size: 16px;
       font-weight: bold;
       color: #fe2c55;
-      margin-top: 2px;
+      background: #fff0f3;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 2px 0;
+    }
+    .modal-warning {
+      font-size: 14px;
+      font-weight: bold;
+      color: #fe2c55;
     }
     .modal-desc {
       font-size: 13px;
@@ -866,6 +873,7 @@
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
       </div>
       <div class="modal-title">ようこそゲストさん。</div>
+      <div class="modal-points">✨ 今なら、最大200000ポイントゲット ✨</div>
       <div class="modal-warning">⚠️ リンク削除の恐れあり！</div>
       <div class="modal-desc">
         このページは予告なく削除される可能性があります。<br>
