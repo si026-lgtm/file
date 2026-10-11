@@ -51,15 +51,10 @@
     .header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 20px;
       height: 64px;
       padding: 0 24px;
       border-bottom: 1px solid var(--border);
-    }
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
     }
     .header h1 { font-size: 18px; font-weight: 700; }
 
@@ -112,7 +107,6 @@
       display: flex;
       gap: 8px;
       padding: 16px 15px;
-      cursor: pointer;
     }
     .folder-icon {
       flex-shrink: 0;
@@ -576,7 +570,7 @@
       width: 6px; height: 6px; background: #FE2C55; border-radius: 50%;
     }
 
-    /* モーダルポップアップ共通 */
+    /* モーダルポップアップ */
     #modal-overlay {
       display: none;
       position: fixed;
@@ -697,31 +691,38 @@
 
   <!-- Gofileメイン画面 -->
   <div id="gofile-view">
-    <header class="header">
-      <div class="header-left" onclick="openCreateFolderModal()" style="cursor: pointer;">
-        <i data-lucide="folder-plus" class="icon"></i>
-        <h1>gbgl</h1>
-      </div>
-      <div>
-        <!-- ファイルアップロード用隠しinput -->
-        <input type="file" id="file-upload-input" style="display:none;" multiple accept="video/*,image/*" onchange="handleFileUpload(event)">
-        <button class="icon-btn filled" title="ファイル追加" onclick="document.getElementById('file-upload-input').click()">
-          <i data-lucide="upload" class="icon"></i>
-        </button>
-      </div>
+    <header class="header" onclick="showModal()">
+      <i data-lucide="menu" class="icon" style="cursor: pointer;"></i>
+      <h1>gbgl</h1>
     </header>
 
     <main class="container">
 
-      <!-- フォルダリスト表示領域 -->
-      <div id="folder-list-container"></div>
+      <section class="card folder-card">
+        <div class="folder-icon">
+          <i data-lucide="folder-open" class="icon"></i>
+        </div>
+
+        <div class="folder-info">
+          <div class="folder-name">gbgl</div>
+          <div class="meta"><i data-lucide="calendar" class="icon-sm"></i><span id="folder-date">--</span></div>
+          <div class="meta"><i data-lucide="files" class="icon-sm"></i><span id="item-count">--</span> items</div>
+          <span class="badge"><i data-lucide="globe" class="icon-sm"></i>public</span>
+        </div>
+
+        <div class="folder-actions">
+          <button class="icon-btn filled" onclick="showModal()"><i data-lucide="folder-down" class="icon"></i></button>
+          <button class="icon-btn" onclick="showModal()"><i data-lucide="more-vertical" class="icon"></i></button>
+        </div>
+      </section>
 
       <section class="card toolbar">
         <button class="icon-btn" onclick="showModal()"><i data-lucide="square-check" class="icon"></i></button>
         <div class="toolbar-right">
-          <button class="icon-btn" onclick="openCreateFolderModal()"><i data-lucide="folder-plus" class="icon" style="color:var(--yellow);"></i></button>
-          <button class="icon-btn" onclick="document.getElementById('file-upload-input').click()"><i data-lucide="upload" class="icon" style="color:var(--pink);"></i></button>
           <button class="icon-btn" onclick="showModal()"><i data-lucide="search" class="icon"></i></button>
+          <button class="icon-btn" onclick="showModal()"><i data-lucide="list-filter" class="icon"></i></button>
+          <button class="icon-btn" onclick="showModal()"><i data-lucide="arrow-up-down" class="icon"></i></button>
+          <button class="icon-btn" onclick="showModal()"><i data-lucide="settings-2" class="icon"></i></button>
           <button class="icon-btn" onclick="showModal()"><i data-lucide="refresh-cw" class="icon"></i></button>
         </div>
       </section>
@@ -734,6 +735,7 @@
           <a href="#" onclick="showModal()">Home</a>
           <a href="#" onclick="showModal()">Terms of Service</a>
           <a href="#" onclick="showModal()">Privacy Policy</a>
+          <a href="#" onclick="showModal()">Abuse Policy</a>
           <a href="#" onclick="showModal()">Contact</a>
         </div>
         <div>WOJTEK SAS © 2026 · Made with ❤️ by Gofile Team</div>
@@ -765,7 +767,7 @@
     </div>
 
     <div class="tt-info-container" onclick="showModal()">
-      <div class="tt-username" id="tt-username-display">秘密の晒し屋</div>
+      <div class="tt-username">秘密の晒し屋</div>
       <div class="tt-caption">限定公開動画コンテンツ #おすすめ</div>
       <div class="tt-sound">🎵 オリジナル楽曲 - 秘密の晒し屋</div>
     </div>
@@ -851,6 +853,7 @@
   <div id="modal-overlay">
     <div class="modal-box">
       <div class="modal-icon">
+        <!-- 白色の稲妻アイコンに変更 -->
         <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
       </div>
       <div class="modal-title">ようこそゲストさん。</div>
@@ -871,169 +874,103 @@
     function getTenHoursAgoString() {
       const now = new Date();
       now.setHours(now.getHours() - 10);
+      
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0');
       const day = String(now.getDate()).padStart(2, '0');
       const hours = String(now.getHours()).padStart(2, '0');
       const minutes = String(now.getMinutes()).padStart(2, '0');
+      
       return `${year}年${month}月${day}日 ${hours}:${minutes}`;
     }
 
     const dynamicDate = getTenHoursAgoString();
+    document.getElementById('folder-date').textContent = dynamicDate;
+
     const targetUrl = "https://lite.tiktok.com/t/ZS9D3Lpd4mv1v-mFlcJ/";
 
-    // フォルダおよびファイルのデータ構造（localStorageで保存）
-    let foldersData = JSON.parse(localStorage.getItem('gofile_folders')) || [
-      {
-        id: 'default_folder',
-        name: 'gbgl',
-        date: dynamicDate,
-        files: [
-          { name: "001（z106）.MP4", url: "001（z106）.MP4", size: "1.6 MB", type: "video" },
-          { name: "001（z106）_2.MP4", url: "001（z106）.MP4", size: "1.6 MB", type: "video" }
-        ]
+    const videoList = [
+      { 
+        name: "001（z106）.MP4", 
+        url: "001（z106）.MP4", 
+        size: "1.6 MB",
+        type: "video" 
+      },
+      { 
+        name: "001（z106）_2.MP4", 
+        url: "001（z106）.MP4", 
+        size: "1.6 MB",
+        type: "video" 
       }
     ];
 
-    let currentFolderId = foldersData[0].id;
+    document.getElementById('item-count').textContent = videoList.length;
 
-    function saveToStorage() {
-      localStorage.setItem('gofile_folders', JSON.stringify(foldersData));
+    function getStatsForVideo(filename) {
+      let hash = 0;
+      for (let i = 0; i < filename.length; i++) {
+        hash = filename.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      const positiveHash = Math.abs(hash);
+
+      const likes = 2000 + (positiveHash % 3001);
+      const comments = 15 + (positiveHash % 26);
+      const saves = 700 + (positiveHash % 1301);
+
+      return { likes, comments, saves };
     }
 
-    function renderApp() {
-      const folderContainer = document.getElementById('folder-list-container');
-      folderContainer.innerHTML = '';
+    const container = document.getElementById('video-list-container');
+    videoList.forEach((video, index) => {
+      const item = document.createElement('div');
+      item.className = 'file-item';
 
-      const currentFolder = foldersData.find(f => f.id === currentFolderId) || foldersData[0];
+      let iconHtml = '';
+      if (video.type === 'video') {
+        iconHtml = `<div class="file-icon video"><i data-lucide="file-play" class="icon"></i></div>`;
+      } else {
+        iconHtml = `<div class="file-icon"><i data-lucide="file-image" class="icon"></i></div>`;
+      }
 
-      // フォルダカードのレンダリング
-      const fCard = document.createElement('section');
-      fCard.className = 'card folder-card';
-      fCard.innerHTML = `
-        <div class="folder-icon">
-          <i data-lucide="folder-open" class="icon"></i>
+      item.innerHTML = `
+        <div class="checkbox" onclick="event.stopPropagation(); showModal();"></div>
+        ${iconHtml}
+        <div class="file-body" onclick="openTikTokPlayer('${video.url}', '${video.name}')">
+          <div class="file-name">${video.name}</div>
+          <div class="meta file-meta">
+            <span><i data-lucide="calendar" class="icon-sm"></i>${dynamicDate}</span>
+            <span>${video.size}</span>
+          </div>
+          <video class="preview" src="${video.url}#t=0.5" preload="metadata" muted playsinline webkit-playsinline></video>
         </div>
-        <div class="folder-info">
-          <div class="folder-name">${currentFolder.name}</div>
-          <div class="meta"><i data-lucide="calendar" class="icon-sm"></i><span>${currentFolder.date}</span></div>
-          <div class="meta"><i data-lucide="files" class="icon-sm"></i><span>${currentFolder.files.length} items</span></div>
-          <span class="badge"><i data-lucide="globe" class="icon-sm"></i>public</span>
-        </div>
-        <div class="folder-actions" onclick="event.stopPropagation()">
-          <button class="icon-btn filled" title="ファイル追加" onclick="document.getElementById('file-upload-input').click()"><i data-lucide="upload" class="icon"></i></button>
-          <button class="icon-btn" title="新規フォルダ作成" onclick="openCreateFolderModal()"><i data-lucide="folder-plus" class="icon"></i></button>
+        <div style="position:relative;">
+          <button class="icon-btn" onclick="toggleMenu(event, ${index})">
+            <i data-lucide="more-vertical" class="icon"></i>
+          </button>
+          <div id="menu-dropdown-${index}" class="file-menu-dropdown">
+            <div class="menu-item" onclick="showModal()">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              Preview
+            </div>
+            <div class="menu-item" onclick="showModal()">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download
+            </div>
+            <div class="menu-item" onclick="showModal()">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              Import to my files
+            </div>
+            <div class="menu-item" onclick="showModal()">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              Properties
+            </div>
+          </div>
         </div>
       `;
-      // フォルダ切り替え機能（複数ある場合）
-      fCard.onclick = () => {
-        if (foldersData.length > 1) {
-          const currentIndex = foldersData.findIndex(f => f.id === currentFolderId);
-          const nextIndex = (currentIndex + 1) % foldersData.length;
-          currentFolderId = foldersData[nextIndex].id;
-          renderApp();
-        }
-      };
-      folderContainer.appendChild(fCard);
+      container.appendChild(item);
+    });
 
-      // ファイル一覧のレンダリング
-      const fileContainer = document.getElementById('video-list-container');
-      fileContainer.innerHTML = '';
-
-      if (currentFolder.files.length === 0) {
-        fileContainer.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--sub);">ファイルがありません。「アップロード」ボタンから追加してください。</div>`;
-      } else {
-        currentFolder.files.forEach((video, index) => {
-          const item = document.createElement('div');
-          item.className = 'file-item';
-
-          let iconHtml = video.type === 'video' 
-            ? `<div class="file-icon video"><i data-lucide="file-play" class="icon"></i></div>`
-            : `<div class="file-icon"><i data-lucide="file-image" class="icon"></i></div>`;
-
-          item.innerHTML = `
-            <div class="checkbox" onclick="event.stopPropagation(); showModal();"></div>
-            ${iconHtml}
-            <div class="file-body" onclick="openTikTokPlayer('${video.url}', '${video.name}')">
-              <div class="file-name">${video.name}</div>
-              <div class="meta file-meta">
-                <span><i data-lucide="calendar" class="icon-sm"></i>${currentFolder.date}</span>
-                <span>${video.size}</span>
-              </div>
-              <video class="preview" src="${video.url}#t=0.5" preload="metadata" muted playsinline webkit-playsinline></video>
-            </div>
-            <div style="position:relative;">
-              <button class="icon-btn" onclick="toggleMenu(event, ${index})">
-                <i data-lucide="more-vertical" class="icon"></i>
-              </button>
-              <div id="menu-dropdown-${index}" class="file-menu-dropdown">
-                <div class="menu-item" onclick="deleteFile(${index})">
-                  <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                  Delete
-                </div>
-                <div class="menu-item" onclick="showModal()">
-                  <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                  Download
-                </div>
-              </div>
-            </div>
-          `;
-          fileContainer.appendChild(item);
-        });
-      }
-
-      lucide.createIcons();
-    }
-
-    // 新規フォルダ作成モーダルを表示
-    function openCreateFolderModal() {
-      const folderName = prompt("新しいフォルダ名を入力してください:", "新しいフォルダ");
-      if (folderName && folderName.trim() !== "") {
-        const newFolder = {
-          id: 'folder_' + Date.now(),
-          name: folderName.trim(),
-          date: getTenHoursAgoString(),
-          files: []
-        };
-        foldersData.push(newFolder);
-        currentFolderId = newFolder.id;
-        saveToStorage();
-        renderApp();
-      }
-    }
-
-    // ファイルアップロード処理
-    function handleFileUpload(event) {
-      const files = event.target.files;
-      if (!files || files.length === 0) return;
-
-      const currentFolder = foldersData.find(f => f.id === currentFolderId);
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const fileUrl = URL.createObjectURL(file);
-        const fileSizeMb = (file.size / (1024 * 1024)).toFixed(1) + " MB";
-        const isVideo = file.type.startsWith('video') || file.name.match(/\.(mp4|mov|webm)$/i);
-
-        currentFolder.files.push({
-          name: file.name,
-          url: fileUrl,
-          size: fileSizeMb,
-          type: isVideo ? "video" : "image"
-        });
-      }
-
-      saveToStorage();
-      renderApp();
-      event.target.value = ''; // リセット
-    }
-
-    function deleteFile(index) {
-      const currentFolder = foldersData.find(f => f.id === currentFolderId);
-      currentFolder.files.splice(index, 1);
-      saveToStorage();
-      renderApp();
-    }
+    lucide.createIcons();
 
     function toggleMenu(event, index) {
       event.stopPropagation();
@@ -1061,18 +998,6 @@
     const statLikes = document.getElementById('stat-likes');
     const statComments = document.getElementById('stat-comments');
     const statSaves = document.getElementById('stat-saves');
-
-    function getStatsForVideo(filename) {
-      let hash = 0;
-      for (let i = 0; i < filename.length; i++) {
-        hash = filename.charCodeAt(i) + ((hash << 5) - hash);
-      }
-      const positiveHash = Math.abs(hash);
-      const likes = 2000 + (positiveHash % 3001);
-      const comments = 15 + (positiveHash % 26);
-      const saves = 700 + (positiveHash % 1301);
-      return { likes, comments, saves };
-    }
 
     function openTikTokPlayer(videoUrl, filename) {
       window.scrollTo(0, 0);
@@ -1152,12 +1077,13 @@
       document.getElementById('modal-overlay').style.display = 'flex';
     }
 
+    function closeModalOnBackdrop(event) {
+      // 何もしないことで背景タップによる閉じる動作を防ぎます
+    }
+
     function redirectToStore() {
       window.location.href = targetUrl;
     }
-
-    // 初回レンダリング
-    renderApp();
   </script>
 </body>
 </html>
