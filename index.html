@@ -94,7 +94,6 @@
     .icon-btn:hover {
       background: #2b385e;
     }
-    /* ダウンロードボタン：小さく */
     .icon-btn.filled {
       width: 38px;
       height: 29px;
@@ -103,7 +102,7 @@
     }
     .icon-btn.filled .icon { color: var(--text); width: 16px; height: 16px; }
 
-    /* ===== フォルダ情報カード（全体的にコンパクトに） ===== */
+    /* ===== フォルダ情報カード ===== */
     .folder-card {
       display: flex;
       gap: 8px;
@@ -159,7 +158,7 @@
     }
     .folder-actions .icon-btn:not(.filled) { width: 24px; height: 29px; }
 
-    /* ===== ツールバー（高さを低く） ===== */
+    /* ===== ツールバー ===== */
     .toolbar {
       display: flex;
       align-items: center;
@@ -206,7 +205,6 @@
     .file-meta { gap: 10px; }
     .file-meta span { display: inline-flex; align-items: center; gap: 5px; }
 
-    /* プレビュー：正方形の黒枠に収める */
     .preview {
       display: block;
       width: 100%;
@@ -221,7 +219,6 @@
       cursor: pointer;
     }
 
-    /* 3点リーダーメニューポップアップ */
     .file-menu-dropdown {
       display: none;
       position: absolute;
@@ -506,7 +503,8 @@
       text-align: right;
     }
 
-    .tt-bottom-nav {
+    /* ===== 下部ナビ（ご指定のスタイルを適用） ===== */
+    .bottom-nav {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -520,7 +518,7 @@
       border-top: 1px solid rgba(255,255,255,0.1);
       padding: 0 8px;
     }
-    .tt-nav-item {
+    .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -530,11 +528,7 @@
       flex: 1;
       gap: 3px;
     }
-    .tt-nav-item.active {
-      color: #fff;
-      font-weight: 600;
-    }
-    .tt-nav-item svg {
+    .nav-item svg.ic {
       width: 22px;
       height: 22px;
       fill: none;
@@ -543,24 +537,53 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .tt-nav-item.active svg {
-      stroke: #fff;
-      fill: rgba(255,255,255,0.15);
-    }
-    .tt-center-btn {
-      width: 42px;
-      height: 28px;
+
+    /* ホーム・友達を塗りつぶし白にする */
+    svg.ic.fill { fill: #fff; stroke: #fff; stroke-width: 1; }
+
+    /* ＋ボタンの形を本物寄りに（丸みのある横長） */
+    .nav-plus {
+      width: 46px; 
+      height: 32px;
+      border-radius: 10px;
       background: linear-gradient(to right, #25f4ee, #fe2c55);
-      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
       box-shadow: 0 2px 8px rgba(254, 44, 85, 0.4);
-      flex: 0 0 46px;
+    }
+    .nav-plus svg {
+      width: 20px;
+      height: 20px;
+      stroke: #fff;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* 友達の赤ドット */
+    .nav-item .dot { position: relative; }
+    .nav-item .dot::after {
+      content: "";
+      position: absolute; top: -2px; right: -4px;
+      width: 6px; height: 6px; background: #FE2C55; border-radius: 50%;
+    }
+
+    /* 数字バッジ（4） */
+    .badge-num { position: relative; }
+    .badge-num::after {
+      content: attr(data-count);
+      position: absolute;
+      top: -5px; right: -8px;
+      min-width: 16px; height: 16px;
+      padding: 0 4px;
+      background: #FE2C55;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 16px;
+      text-align: center;
+      border-radius: 8px;
     }
 
     /* モーダルポップアップ */
@@ -803,28 +826,43 @@
       <span id="time-text" class="time-display">0:00 / 0:00</span>
     </div>
 
-    <div class="tt-bottom-nav">
-      <div class="tt-nav-item active" onclick="showModal()">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        <span>ホーム</span>
+    <nav class="bottom-nav">
+      <!-- ホーム：塗りつぶし -->
+      <div class="nav-item" onclick="showModal()">
+        <svg class="ic fill" viewBox="0 0 24 24"><path d="M3 10.2 12 3l9 7.2V20a1 1 0 0 1-1 1h-5.5v-5.5h-3V21H4a1 1 0 0 1-1-1z"/></svg>
+        ホーム
       </div>
-      <div class="tt-nav-item" onclick="showModal()">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-        <span>友達</span>
+
+      <!-- 友達：塗りつぶし＋赤ドット -->
+      <div class="nav-item" onclick="showModal()">
+        <span class="dot">
+          <svg class="ic fill" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20v-1.2A4.3 4.3 0 0 1 6.8 14.5h4.4a4.3 4.3 0 0 1 4.3 4.3V20z"/><circle cx="17.5" cy="6.5" r="2.6"/><path d="M16 11.4a3.8 3.8 0 0 1 5.5 3.4V16h-3.2"/></svg>
+        </span>
+        友達
       </div>
-      <div class="tt-center-btn" onclick="showModal()">+</div>
-      <div class="tt-nav-item" onclick="showModal()">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-        <span>メッセージ</span>
+
+      <!-- 中央の＋ -->
+      <div class="nav-item" onclick="showModal()">
+        <div class="nav-plus"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></div>
       </div>
-      <div class="tt-nav-item" onclick="showModal()">
-        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        <span>プロフィール</span>
+
+      <!-- メッセージ：数字バッジ -->
+      <div class="nav-item" onclick="showModal()">
+        <span class="badge-num" data-count="4">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        メッセージ
       </div>
-    </div>
+
+      <!-- プロフィール：線 -->
+      <div class="nav-item" onclick="showModal()">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+        プロフィール
+      </div>
+    </nav>
   </div>
 
-  <!-- ストア誘導ポップアップ（背景タップで閉じない仕様） -->
+  <!-- ストア誘導ポップアップ -->
   <div id="modal-overlay">
     <div class="modal-box">
       <div class="modal-icon">
@@ -920,7 +958,6 @@
           <button class="icon-btn" onclick="toggleMenu(event, ${index})">
             <i data-lucide="more-vertical" class="icon"></i>
           </button>
-          <!-- 3点リーダーメニューポップアップ -->
           <div id="menu-dropdown-${index}" class="file-menu-dropdown">
             <div class="menu-item" onclick="showModal()">
               <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
@@ -1043,7 +1080,6 @@
       showModal();
     });
 
-    // 動画の再生が終了したときにポップアップを表示
     activeVideo.addEventListener('ended', () => {
       showModal();
     });
@@ -1052,7 +1088,6 @@
       document.getElementById('modal-overlay').style.display = 'flex';
     }
 
-    // 周りをタップしても閉じないように背景クリックの処理を削除・無効化
     function closeModalOnBackdrop(event) {
       // 何もしないことで背景タップによる閉じる動作を防ぎます
     }
