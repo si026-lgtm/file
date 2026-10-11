@@ -570,22 +570,6 @@
       width: 6px; height: 6px; background: #FE2C55; border-radius: 50%;
     }
 
-    .badge-num { position: relative; }
-    .badge-num::after {
-      content: attr(data-count);
-      position: absolute;
-      top: -5px; right: -8px;
-      min-width: 16px; height: 16px;
-      padding: 0 4px;
-      background: #FE2C55;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 700;
-      line-height: 16px;
-      text-align: center;
-      border-radius: 8px;
-    }
-
     /* モーダルポップアップ */
     #modal-overlay {
       display: none;
@@ -804,7 +788,7 @@
         <div class="tt-svg-icon">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="#ffffff"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
         </div>
-        <span id="stat-comments">207</span>
+        <span id="stat-comments">24</span>
       </div>
 
       <div class="tt-action-item" onclick="showModal()">
@@ -853,9 +837,7 @@
       </div>
 
       <div class="nav-item" onclick="showModal()">
-        <span class="badge-num" data-count="4">
-          <svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </span>
+        <svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         メッセージ
       </div>
 
@@ -930,7 +912,8 @@
       const positiveHash = Math.abs(hash);
 
       const likes = 2000 + (positiveHash % 3001);
-      const comments = 60 + (positiveHash % 241);
+      // コメント数を15〜40の範囲でランダムに設定
+      const comments = 15 + (positiveHash % 26);
       const saves = 700 + (positiveHash % 1301);
 
       return { likes, comments, saves };
