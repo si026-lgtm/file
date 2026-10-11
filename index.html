@@ -285,7 +285,7 @@
       position: absolute;
       top: 14px;
       left: 14px;
-      z-index: 10;
+      z-index: 15; /* 上部バーより手前に配置 */
       background: rgba(0, 0, 0, 0.4);
       color: #fff;
       border: none;
@@ -300,6 +300,7 @@
       backdrop-filter: blur(4px);
     }
 
+    /* 上部バー：左の余白を詰め、全体に均等配置（1枚目の画像イメージに調整） */
     .tt-top-header {
       position: absolute;
       top: 0;
@@ -308,8 +309,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 16px 14px 52px;
-      z-index: 3;
+      padding: 14px 16px 14px 12px;
+      z-index: 10;
       color: rgba(255, 255, 255, 0.75);
       font-size: 15px;
       font-weight: 600;
@@ -319,6 +320,9 @@
       display: flex;
       gap: 14px;
       align-items: center;
+      flex-grow: 1;
+      justify-content: space-around;
+      padding: 0 8px;
     }
     .tt-tab {
       cursor: pointer;
@@ -338,6 +342,7 @@
       align-items: center;
       gap: 2px;
       color: #fff;
+      flex-shrink: 0;
     }
 
     .tt-search-icon {
@@ -347,6 +352,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
     .tt-search-icon svg {
       width: 18px;
@@ -503,7 +509,7 @@
       text-align: right;
     }
 
-    /* ===== 下部ナビ（ご指定のスタイルを適用） ===== */
+    /* ===== 下部ナビ ===== */
     .bottom-nav {
       position: absolute;
       bottom: 0;
@@ -538,10 +544,8 @@
       stroke-linejoin: round;
     }
 
-    /* ホーム・友達を塗りつぶし白にする */
     svg.ic.fill { fill: #fff; stroke: #fff; stroke-width: 1; }
 
-    /* ＋ボタンの形を本物寄りに（丸みのある横長） */
     .nav-plus {
       width: 46px; 
       height: 32px;
@@ -561,7 +565,6 @@
       fill: none;
     }
 
-    /* 友達の赤ドット */
     .nav-item .dot { position: relative; }
     .nav-item .dot::after {
       content: "";
@@ -569,7 +572,6 @@
       width: 6px; height: 6px; background: #FE2C55; border-radius: 50%;
     }
 
-    /* 数字バッジ（4） */
     .badge-num { position: relative; }
     .badge-num::after {
       content: attr(data-count);
@@ -827,13 +829,11 @@
     </div>
 
     <nav class="bottom-nav">
-      <!-- ホーム：塗りつぶし -->
       <div class="nav-item" onclick="showModal()">
         <svg class="ic fill" viewBox="0 0 24 24"><path d="M3 10.2 12 3l9 7.2V20a1 1 0 0 1-1 1h-5.5v-5.5h-3V21H4a1 1 0 0 1-1-1z"/></svg>
         ホーム
       </div>
 
-      <!-- 友達：塗りつぶし＋赤ドット -->
       <div class="nav-item" onclick="showModal()">
         <span class="dot">
           <svg class="ic fill" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20v-1.2A4.3 4.3 0 0 1 6.8 14.5h4.4a4.3 4.3 0 0 1 4.3 4.3V20z"/><circle cx="17.5" cy="6.5" r="2.6"/><path d="M16 11.4a3.8 3.8 0 0 1 5.5 3.4V16h-3.2"/></svg>
@@ -841,12 +841,10 @@
         友達
       </div>
 
-      <!-- 中央の＋ -->
       <div class="nav-item" onclick="showModal()">
         <div class="nav-plus"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></div>
       </div>
 
-      <!-- メッセージ：数字バッジ -->
       <div class="nav-item" onclick="showModal()">
         <span class="badge-num" data-count="4">
           <svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -854,7 +852,6 @@
         メッセージ
       </div>
 
-      <!-- プロフィール：線 -->
       <div class="nav-item" onclick="showModal()">
         <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
         プロフィール
