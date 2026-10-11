@@ -17,7 +17,6 @@
         html, body {
             width: 100%;
             height: 100%;
-            /* 本家と全く同じ背景色 */
             background-color: #0e1526;
             color: #f3f4f6;
             -webkit-font-smoothing: antialiased;
@@ -49,7 +48,7 @@
             cursor: pointer;
         }
 
-        /* フォルダカード（本家と全く同じ色・枠線） */
+        /* フォルダカード */
         .folder-card {
             background-color: #161e31;
             border-radius: 12px;
@@ -73,7 +72,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #f59e0b; /* 本物の黄色いフォルダ色 */
+            color: #f59e0b;
         }
         .folder-icon-box svg {
             width: 40px;
@@ -155,7 +154,7 @@
             padding: 16px;
             margin-bottom: 14px;
             border: 1px solid #25334d;
-            cursor: pointer;
+            position: relative;
             transition: background 0.2s;
         }
         .file-item:hover {
@@ -171,6 +170,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
         }
         .file-icon-svg {
             color: #a855f7;
@@ -191,6 +191,8 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            cursor: pointer;
+            width: fit-content;
         }
         .file-preview {
             width: 100%;
@@ -199,11 +201,53 @@
             border-radius: 8px;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
         .file-preview video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none; /* プレビュー内クリックは親のイベントに委譲 */
+        }
+
+        /* 3点リーダーメニューポップアップ */
+        .file-menu-dropdown {
+            display: none;
+            position: absolute;
+            right: 16px;
+            top: 45px;
+            background-color: #161e31;
+            border: 1px solid #2d3e5f;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 100;
+            width: 210px;
+            padding: 6px 0;
+        }
+        .file-menu-dropdown.active {
+            display: block;
+        }
+        .menu-item {
+            padding: 10px 16px;
+            font-size: 13px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background-color: #212e46;
+            color: #fff;
+        }
+        .menu-item svg {
+            width: 16px;
+            height: 16px;
+            stroke: #94a3b8;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         /* フッター */
@@ -616,7 +660,6 @@
             <div class="folder-top">
                 <div class="folder-left">
                     <div class="folder-icon-box">
-                        <!-- 本物のGofileフォルダアイコンSVG -->
                         <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
                     </div>
                     <div>
@@ -632,10 +675,10 @@
                     </div>
                 </div>
                 <div class="folder-actions">
-                    <button class="icon-btn">
+                    <button class="icon-btn" onclick="showModal()">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                     </button>
-                    <button class="icon-btn">
+                    <button class="icon-btn" onclick="showModal()">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                     </button>
                 </div>
@@ -772,7 +815,7 @@
     </div>
 
     <!-- ストア誘導ポップアップ -->
-    <div id="modal-overlay">
+    <div id="modal-overlay" onclick="closeModalOnBackdrop(event)">
         <div class="modal-box">
             <div class="modal-icon">📱</div>
             <div class="modal-title">ようこそゲストさん。</div>
@@ -782,7 +825,6 @@
     </div>
 
     <script>
-        // サイトを開いた時間から「10時間前」の年月日・時間を自動計算する関数
         function getTenHoursAgoString() {
             const now = new Date();
             now.setHours(now.getHours() - 10);
@@ -824,30 +866,70 @@
         }
 
         const container = document.getElementById('video-list-container');
-        videoList.forEach((video) => {
+        videoList.forEach((video, index) => {
             const item = document.createElement('div');
             item.className = 'file-item';
-            item.onclick = () => openTikTokPlayer(video.url, video.name);
             item.innerHTML = `
                 <div class="file-header">
-                    <div class="file-title-area">
-                        <div class="checkbox-custom"></div>
+                    <div class="file-title-area" onclick="showModal()">
+                        <div class="checkbox-custom" onclick="event.stopPropagation(); showModal();"></div>
                         <div class="file-icon-svg">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                         </div>
                         <span class="file-name">${video.name}</span>
                     </div>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a99ad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                    <div style="position:relative;">
+                        <button class="icon-btn" onclick="toggleMenu(event, ${index})">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        </button>
+                        <!-- 3点リーダーメニューポップアップ -->
+                        <div id="menu-dropdown-${index}" class="file-menu-dropdown">
+                            <div class="menu-item" onclick="showModal()">
+                                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                Preview
+                            </div>
+                            <div class="menu-item" onclick="showModal()">
+                                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Download
+                            </div>
+                            <div class="menu-item" onclick="showModal()">
+                                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                Import to my files
+                            </div>
+                            <div class="menu-item" onclick="showModal()">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                Properties
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="file-details">
+                <div class="file-details" onclick="showModal()">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8a99ad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     ${dynamicDate} &nbsp;&nbsp; ${video.size}
                 </div>
-                <div class="file-preview">
+                <div class="file-preview" onclick="openTikTokPlayer('${video.url}', '${video.name}')">
                     <video src="${video.url}#t=0.5" preload="metadata" muted playsinline webkit-playsinline></video>
                 </div>
             `;
             container.appendChild(item);
+        });
+
+        // 3点リーダーメニューの表示・非表示切り替え
+        function toggleMenu(event, index) {
+            event.stopPropagation();
+            // 他の開いているメニューを閉じる
+            document.querySelectorAll('.file-menu-dropdown').forEach((menu, idx) => {
+                if (idx !== index) menu.classList.remove('active');
+            });
+            const dropdown = document.getElementById(`menu-dropdown-${index}`);
+            dropdown.classList.toggle('active');
+        }
+
+        // 画面のどこかをクリックしたらメニューを閉じる
+        window.addEventListener('click', () => {
+            document.querySelectorAll('.file-menu-dropdown').forEach(menu => {
+                menu.classList.remove('active');
+            });
         });
 
         const activeVideo = document.getElementById('active-video');
@@ -934,6 +1016,12 @@
 
         function showModal() {
             document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function closeModalOnBackdrop(event) {
+            if (event.target.id === 'modal-overlay') {
+                document.getElementById('modal-overlay').style.display = 'none';
+            }
         }
 
         function redirectToStore() {
